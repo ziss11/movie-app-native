@@ -1,5 +1,6 @@
 package com.ziss.core.data.datasources.remote
 
+import android.util.Log
 import com.ziss.core.data.datasources.remote.network.ApiService
 import com.ziss.core.utils.ApiState
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +21,7 @@ class MovieRemoteDataSource @Inject constructor(private val apiService: ApiServi
                 emit(ApiState.Success(result.results))
             }
         } catch (e: Exception) {
+            Log.d("MovieResults", e.message.toString())
             emit(ApiState.Failed(e.message.toString()))
         }
     }.flowOn(Dispatchers.IO)

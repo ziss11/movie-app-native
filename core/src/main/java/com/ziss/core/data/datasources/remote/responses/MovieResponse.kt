@@ -31,10 +31,10 @@ data class MovieResponse(
     val releaseDate: String,
 
     @field:SerializedName("popularity")
-    val popularity: Int? = null,
+    val popularity: Number,
 
     @field:SerializedName("vote_average")
-    val voteAverage: Double? = null,
+    val voteAverage: Number,
 
     @field:SerializedName("adult")
     val adult: Boolean,

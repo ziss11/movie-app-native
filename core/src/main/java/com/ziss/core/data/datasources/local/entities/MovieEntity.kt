@@ -35,10 +35,10 @@ data class MovieEntity(
     val releaseDate: String,
 
     @ColumnInfo("popularity")
-    val popularity: Int? = null,
+    val popularity: Double,
 
     @ColumnInfo("voteAverage")
-    val voteAverage: Double? = null,
+    val voteAverage: Double,
 
     @ColumnInfo("adult")
     val adult: Boolean,

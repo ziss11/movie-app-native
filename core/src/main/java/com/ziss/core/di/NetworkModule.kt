@@ -3,6 +3,7 @@ package com.ziss.core.di
 import com.ziss.core.BuildConfig
 import com.ziss.core.data.datasources.remote.network.ApiService
 import com.ziss.core.utils.Constants
+import com.ziss.core.utils.TokenInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,9 +24,11 @@ class NetworkModule {
         } else {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
         }
+        val tokenInterceptor = TokenInterceptor()
 
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(tokenInterceptor)
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .build()

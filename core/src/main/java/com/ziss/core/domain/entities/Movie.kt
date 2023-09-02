@@ -10,8 +10,8 @@ data class Movie(
     val posterPath: String,
     val backdropPath: String,
     val releaseDate: String,
-    val popularity: Int? = null,
-    val voteAverage: Double? = null,
+    val popularity: Number,
+    val voteAverage: Number,
     val adult: Boolean,
     val voteCount: Int,
 )

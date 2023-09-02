@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -7,6 +10,11 @@ plugins {
 
 apply(from = "../shared_dependencies.gradle")
 
+val properties = Properties()
+properties.load(FileInputStream(rootProject.file("local.properties")))
+
+val apiKey = properties.getProperty("API_KEY")
+
 android {
     namespace = "com.ziss.core"
     compileSdk = 33
@@ -15,9 +23,11 @@ android {
         minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
         consumerProguardFiles("consumer-rules.pro")
     }
     buildFeatures {
+        viewBinding = true
         buildConfig = true
     }
     buildTypes {
@@ -48,6 +58,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     implementation("androidx.room:room-ktx:2.5.2")
     implementation("androidx.room:room-runtime:2.5.2")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     api("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     api("androidx.activity:activity-ktx:1.7.2")
