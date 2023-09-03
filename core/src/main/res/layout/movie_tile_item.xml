@@ -20,6 +20,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="11dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/white"
@@ -29,78 +30,52 @@
         tools:text="Spiderman"
         tools:textColor="@color/black" />
 
-    <ImageView
-        android:id="@+id/ic_star"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:contentDescription="@string/rating"
-        android:src="@drawable/ic_star"
-        app:layout_constraintStart_toStartOf="@+id/tv_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
-
     <TextView
         android:id="@+id/tv_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:drawablePadding="8dp"
+        android:includeFontPadding="false"
         android:textColor="@color/orange"
         android:textSize="12sp"
         android:textStyle="bold|normal"
-        app:layout_constraintBottom_toBottomOf="@+id/ic_star"
-        app:layout_constraintStart_toEndOf="@+id/ic_star"
-        app:layout_constraintTop_toTopOf="@+id/ic_star"
+        app:drawableStartCompat="@drawable/ic_star"
+        app:layout_constraintStart_toStartOf="@+id/tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
         tools:text="9.5" />
-
-    <ImageView
-        android:id="@+id/ic_ticket"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="4dp"
-        android:contentDescription="@string/ticket"
-        android:src="@drawable/ic_ticket"
-        app:layout_constraintStart_toEndOf="@+id/iv_movie"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rating" />
 
     <TextView
         android:id="@+id/tv_genre"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="8dp"
         android:ellipsize="end"
+        android:includeFontPadding="false"
         android:maxLines="1"
         android:textColor="@color/white"
         android:textSize="12sp"
         android:textStyle="bold|normal"
-        app:layout_constraintBottom_toBottomOf="@+id/ic_ticket"
-        app:layout_constraintStart_toEndOf="@+id/ic_ticket"
-        app:layout_constraintTop_toTopOf="@+id/ic_ticket"
+        app:drawableStartCompat="@drawable/ic_ticket"
+        app:layout_constraintStart_toStartOf="@+id/tv_rating"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rating"
         tools:text="Action"
         tools:textColor="@color/black" />
-
-    <ImageView
-        android:id="@+id/ic_calendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="4dp"
-        android:contentDescription="@string/release_year"
-        android:src="@drawable/ic_calendar"
-        app:layout_constraintStart_toEndOf="@+id/iv_movie"
-        app:layout_constraintTop_toBottomOf="@+id/ic_ticket" />
 
     <TextView
         android:id="@+id/tv_release_year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:drawablePadding="8dp"
+        android:includeFontPadding="false"
         android:textColor="@color/white"
         android:textSize="12sp"
         android:textStyle="bold|normal"
-        app:layout_constraintBottom_toBottomOf="@+id/ic_calendar"
-        app:layout_constraintStart_toEndOf="@+id/ic_calendar"
-        app:layout_constraintTop_toTopOf="@+id/ic_calendar"
+        app:drawableStartCompat="@drawable/ic_calendar"
+        app:layout_constraintStart_toStartOf="@+id/tv_genre"
+        app:layout_constraintTop_toBottomOf="@+id/tv_genre"
         tools:text="2019"
         tools:textColor="@color/black" />
 
