@@ -10,4 +10,5 @@
     <string name="popular">Popular</string>
     <string name="now_playing">Now Playing</string>
     <string name="popular_movies">Popular Movies</string>
+    <string name="unable_load_movies">Unable to load movies</string>
 </resources>

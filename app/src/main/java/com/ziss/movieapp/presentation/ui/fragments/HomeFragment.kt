@@ -39,8 +39,13 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setToolbar()
-        setTopRatedAdapter()
-        setNowPlayingAdapter()
+
+        homeViewModel.getMoviesGenre().observe(requireActivity()) { result ->
+            if (result is ResultState.Success) {
+                setTopRatedAdapter()
+                setNowPlayingAdapter()
+            }
+        }
     }
 
     private fun setToolbar() {
@@ -95,17 +100,23 @@ class HomeFragment : Fragment() {
     private fun fetchTopRatedMovies() {
         homeViewModel.getTopRatedMovies().observe(requireActivity()) { result ->
             when (result) {
-                is ResultState.Loading -> {}
+                is ResultState.Loading -> showTopRatedProgressBar()
 
                 is ResultState.Success -> {
+                    showTopRatedProgressBar(false)
                     val movies = result.data
 
                     if (!movies.isNullOrEmpty()) {
                         movieCardAdapter.setMovies(movies)
+                    } else {
+                        showTopRatedMessage()
                     }
                 }
 
-                is ResultState.Failed -> {}
+                is ResultState.Failed -> {
+                    showTopRatedProgressBar(false)
+                    showTopRatedMessage()
+                }
             }
         }
     }
@@ -113,18 +124,52 @@ class HomeFragment : Fragment() {
     private fun fetchNowPlayingMovies() {
         homeViewModel.getNowPlayingMovies().observe(requireActivity()) { result ->
             when (result) {
-                is ResultState.Loading -> {}
+                is ResultState.Loading -> showPopularProgressBar()
 
                 is ResultState.Success -> {
+                    showPopularProgressBar(false)
                     val movies = result.data
 
                     if (!movies.isNullOrEmpty()) {
                         movieTileAdapter.setMovies(movies)
+                    } else {
+                        showPopularMessage()
                     }
                 }
 
-                is ResultState.Failed -> {}
+                is ResultState.Failed -> {
+                    showPopularProgressBar(false)
+                    showPopularMessage()
+                }
             }
+        }
+    }
+
+    private fun showTopRatedProgressBar(isLoading: Boolean = true) {
+        binding.trProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showPopularProgressBar(isLoading: Boolean = true) {
+        binding.popularProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showTopRatedMessage(isShow: Boolean = true) {
+        if (isShow) {
+            binding.tvTrMessage.visibility = View.VISIBLE
+            binding.rvTopRated.visibility = View.INVISIBLE
+        } else {
+            binding.tvTrMessage.visibility = View.GONE
+            binding.rvTopRated.visibility = View.VISIBLE
+        }
+    }
+
+    private fun showPopularMessage(isShow: Boolean = true) {
+        if (isShow) {
+            binding.tvPopularMessage.visibility = View.VISIBLE
+            binding.rvPopular.visibility = View.INVISIBLE
+        } else {
+            binding.tvPopularMessage.visibility = View.GONE
+            binding.rvPopular.visibility = View.VISIBLE
         }
     }
 }

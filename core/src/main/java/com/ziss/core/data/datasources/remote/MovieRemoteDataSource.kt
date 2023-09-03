@@ -37,4 +37,18 @@ class MovieRemoteDataSource @Inject constructor(private val apiService: ApiServi
             emit(ApiState.Failed(e.message.toString()))
         }
     }.flowOn(Dispatchers.IO)
+
+    fun getMoviesGenre() = flow {
+        try {
+            val result = apiService.getMoviesGenre()
+
+            if (result.genres.isEmpty()) {
+                emit(ApiState.Empty)
+            } else {
+                emit(ApiState.Success(result.genres))
+            }
+        } catch (e: Exception) {
+            emit(ApiState.Failed(e.message.toString()))
+        }
+    }.flowOn(Dispatchers.IO)
 }

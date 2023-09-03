@@ -7,4 +7,5 @@ class MovieInteractor @Inject constructor(private val movieRepository: MovieRepo
     MovieUseCase {
     override fun getTopRatedMovies() = movieRepository.getTopRatedMovies()
     override fun getNowPlayingMovies() = movieRepository.getNowPlayingMovies()
+    override fun getMoviesGenre() = movieRepository.getMoviesGenre()
 }

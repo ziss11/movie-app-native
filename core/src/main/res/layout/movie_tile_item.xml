@@ -18,9 +18,11 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="11dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="@color/white"
         android:textStyle="bold|normal"
         app:layout_constraintStart_toEndOf="@+id/iv_movie"
@@ -63,9 +65,11 @@
 
     <TextView
         android:id="@+id/tv_genre"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="@color/white"
         android:textSize="12sp"
         android:textStyle="bold|normal"

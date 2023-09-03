@@ -24,7 +24,7 @@ class MovieTileAdapter : RecyclerView.Adapter<MovieTileAdapter.ListViewHolder>()
         fun bind(movie: Movie) {
             binding.ivMovie.loadImage("${Constants.IMAGE_BASE_URL}${movie.posterPath}")
             binding.tvTitle.text = movie.title
-            binding.tvGenre.text = ""
+            binding.tvGenre.text = movie.genre.joinToString(", ") { it.name }
             binding.tvRating.text = movie.voteAverage.toString()
             binding.tvReleaseYear.text = movie.releaseDate
             itemView.setOnClickListener { onItemClickCallback.onItemClicked(movie) }

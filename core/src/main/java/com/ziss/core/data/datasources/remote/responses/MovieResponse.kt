@@ -18,6 +18,9 @@ data class MovieResponse(
     @field:SerializedName("video")
     val video: Boolean,
 
+    @field: SerializedName("genre_ids")
+    val genreIds: List<Int>,
+
     @field:SerializedName("title")
     val title: String,
 
