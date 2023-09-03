@@ -11,4 +11,6 @@
     <string name="now_playing">Now Playing</string>
     <string name="popular_movies">Popular Movies</string>
     <string name="unable_load_movies">Unable to load movies</string>
+    <string name="overview_title">Overview</string>
+    <string name="detail">Detail</string>
 </resources>

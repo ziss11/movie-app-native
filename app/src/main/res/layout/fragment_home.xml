@@ -10,17 +10,12 @@
     tools:context=".presentation.ui.activities.MainActivity">
 
     <FrameLayout
-        android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
+        <include
+            android:id="@+id/appbar_layout"
+            layout="@layout/toolbar" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ed_search"

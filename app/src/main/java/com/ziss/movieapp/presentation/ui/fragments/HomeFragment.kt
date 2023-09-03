@@ -8,12 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ziss.core.domain.entities.Movie
 import com.ziss.core.presentation.adapter.MovieCardAdapter
 import com.ziss.core.presentation.adapter.MovieTileAdapter
+import com.ziss.core.presentation.models.MovieModel
 import com.ziss.core.utils.MarginItemDecoration
 import com.ziss.core.utils.ResultState
 import com.ziss.movieapp.databinding.FragmentHomeBinding
+import com.ziss.movieapp.presentation.ui.activities.DetailActivity
 import com.ziss.movieapp.presentation.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,7 +51,7 @@ class HomeFragment : Fragment() {
 
     private fun setToolbar() {
         val activity = activity as AppCompatActivity
-        activity.setSupportActionBar(binding.toolbar)
+        activity.setSupportActionBar(binding.appbarLayout.toolbar)
         activity.supportActionBar?.title = ""
     }
 
@@ -63,7 +64,8 @@ class HomeFragment : Fragment() {
 
         movieCardAdapter = MovieCardAdapter()
         movieCardAdapter.setOnItemClicked(object : MovieCardAdapter.OnItemClickCallback {
-            override fun onItemClicked(movie: Movie) {
+            override fun onItemClicked(movie: MovieModel) {
+                DetailActivity.start(requireActivity(), movie)
             }
         })
 
@@ -85,7 +87,8 @@ class HomeFragment : Fragment() {
 
         movieTileAdapter = MovieTileAdapter()
         movieTileAdapter.setOnItemClicked(object : MovieTileAdapter.OnItemClickCallback {
-            override fun onItemClicked(movie: Movie) {
+            override fun onItemClicked(movie: MovieModel) {
+                DetailActivity.start(requireActivity(), movie)
             }
         })
 

@@ -1,11 +1,11 @@
 package com.ziss.core.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.ziss.core.domain.entities.Movie
+import com.ziss.core.presentation.models.MovieModel
 
 class MovieDIffCallback(
-    private val oldItemList: List<Movie>,
-    private val newItemList: List<Movie>,
+    private val oldItemList: List<MovieModel>,
+    private val newItemList: List<MovieModel>,
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldItemList.size

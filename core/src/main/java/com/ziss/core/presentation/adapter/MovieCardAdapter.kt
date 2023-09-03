@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ziss.core.databinding.MovieCardItemBinding
-import com.ziss.core.domain.entities.Movie
+import com.ziss.core.presentation.models.MovieModel
 import com.ziss.core.utils.Constants.IMAGE_BASE_URL
 import com.ziss.core.utils.MovieDIffCallback
 import com.ziss.core.utils.loadImage
@@ -13,15 +13,15 @@ import com.ziss.core.utils.loadImage
 class MovieCardAdapter : RecyclerView.Adapter<MovieCardAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
-    private val movies = arrayListOf<Movie>()
+    private val movies = arrayListOf<MovieModel>()
 
     interface OnItemClickCallback {
-        fun onItemClicked(movie: Movie)
+        fun onItemClicked(movie: MovieModel)
     }
 
     inner class ListViewHolder(private val binding: MovieCardItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Movie) {
+        fun bind(movie: MovieModel) {
             binding.ivMovie.loadImage("$IMAGE_BASE_URL${movie.posterPath}")
             binding.ivMovie.setOnClickListener { onItemClickCallback.onItemClicked(movie) }
         }
@@ -45,7 +45,7 @@ class MovieCardAdapter : RecyclerView.Adapter<MovieCardAdapter.ListViewHolder>()
         this.onItemClickCallback = onItemClickCallback
     }
 
-    fun setMovies(movies: List<Movie>) {
+    fun setMovies(movies: List<MovieModel>) {
         val diffCallback = MovieDIffCallback(this.movies, movies)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
 

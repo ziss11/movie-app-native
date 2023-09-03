@@ -1,13 +1,17 @@
-package com.ziss.core.domain.entities
+package com.ziss.core.presentation.models
 
-data class Movie(
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class MovieModel(
     val id: Int,
     val overview: String,
     val originalLanguage: String,
     val originalTitle: String,
     val video: Boolean,
     val title: String,
-    val genres: List<Genre>,
+    val genres: List<GenreModel>,
     val posterPath: String,
     val backdropPath: String,
     val releaseDate: String,
@@ -15,4 +19,4 @@ data class Movie(
     val voteAverage: Number,
     val adult: Boolean,
     val voteCount: Int,
-)
+) : Parcelable
