@@ -3,6 +3,11 @@
     <string name="splash_logo_desc">Splash Logo</string>
     <string name="search">Search</string>
     <string name="movie_image_desc">Movie Image</string>
-    <string name="home_title">What do you want to watch?</string>
     <string name="top_rated">Top Rated</string>
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="popular">Popular</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="popular_movies">Popular Movies</string>
 </resources>

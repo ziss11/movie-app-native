@@ -1,5 +1,6 @@
 package com.ziss.core.utils
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
@@ -18,6 +19,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
     protected abstract suspend fun saveCallResult(data: RequestType)
 
     fun toFlow() = flow {
+        Log.d("Popular", "loaded")
         emit(ResultState.Loading())
 
         val dbSource = loadFromDB().first()

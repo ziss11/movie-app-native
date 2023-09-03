@@ -1,6 +1,7 @@
 package com.ziss.core.data.repositories
 
 import com.ziss.core.data.datasources.local.MovieLocalDataSource
+import com.ziss.core.data.datasources.local.entities.TypeEntity
 import com.ziss.core.data.datasources.remote.MovieRemoteDataSource
 import com.ziss.core.data.datasources.remote.responses.MovieResponse
 import com.ziss.core.domain.entities.Movie
@@ -24,10 +25,31 @@ class MovieRepository @Inject constructor(
                 it.toMovieList()
             }
 
-            override suspend fun createCall() = remoteDataSource.getTopRateMovies()
+            override suspend fun createCall() = remoteDataSource.getTopRatedMovies()
 
-            override suspend fun saveCallResult(data: List<MovieResponse>) =
-                localDataSource.insertTopRatedMovies(data.toMovieEntityList())
+            override suspend fun saveCallResult(data: List<MovieResponse>) {
+                val type = TypeEntity(0, "Top Rated")
+                localDataSource.insertMovieType(type)
+                localDataSource.insertTopRatedMovies(data.toMovieEntityList(type.id))
+            }
+
+            override fun shouldFetch(data: List<Movie>?): Boolean = data == null || data.isEmpty()
+
+        }.toFlow()
+
+    override fun getNowPlayingMovies() =
+        object : NetworkBoundResource<List<Movie>, List<MovieResponse>>() {
+            override fun loadFromDB() = localDataSource.getNowPlayingMovies().map {
+                it.toMovieList()
+            }
+
+            override suspend fun createCall() = remoteDataSource.getNowPlayingMovies()
+
+            override suspend fun saveCallResult(data: List<MovieResponse>) {
+                val type = TypeEntity(1, "Now Playing")
+                localDataSource.insertMovieType(type)
+                localDataSource.insertNowPlayingMovies(data.toMovieEntityList(type.id))
+            }
 
             override fun shouldFetch(data: List<Movie>?): Boolean = data == null || data.isEmpty()
 

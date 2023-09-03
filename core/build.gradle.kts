@@ -17,7 +17,7 @@ val apiKey = properties.getProperty("API_KEY")
 
 android {
     namespace = "com.ziss.core"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
@@ -59,6 +59,8 @@ dependencies {
     implementation("androidx.room:room-ktx:2.5.2")
     implementation("androidx.room:room-runtime:2.5.2")
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
 
     api("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     api("androidx.activity:activity-ktx:1.7.2")

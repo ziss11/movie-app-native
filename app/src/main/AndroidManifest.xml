@@ -7,7 +7,6 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -17,11 +16,11 @@
         android:theme="@style/Theme.MovieApp"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.ui.HomeActivity"
+            android:name=".presentation.ui.activities.MainActivity"
             android:exported="false"
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
-            android:name=".presentation.ui.SplashActivity"
+            android:name=".presentation.ui.activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

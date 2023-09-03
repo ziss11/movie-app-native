@@ -10,6 +10,9 @@ data class MovieEntity(
     @ColumnInfo("id")
     val id: Int,
 
+    @ColumnInfo("typeId")
+    val typeId: Int,
+
     @ColumnInfo("overview")
     val overview: String,
 

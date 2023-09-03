@@ -1,4 +1,4 @@
-package com.ziss.movieapp.presentation.ui
+package com.ziss.movieapp.presentation.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -26,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.Main).launch {
             delay(3000L)
-            startActivity(Intent(this@SplashActivity, HomeActivity::class.java))
+            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             finish()
         }
     }

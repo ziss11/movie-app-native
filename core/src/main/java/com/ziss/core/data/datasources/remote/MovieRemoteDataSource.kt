@@ -1,6 +1,5 @@
 package com.ziss.core.data.datasources.remote
 
-import android.util.Log
 import com.ziss.core.data.datasources.remote.network.ApiService
 import com.ziss.core.utils.ApiState
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +10,7 @@ import javax.inject.Singleton
 
 @Singleton
 class MovieRemoteDataSource @Inject constructor(private val apiService: ApiService) {
-    suspend fun getTopRateMovies() = flow {
+    suspend fun getTopRatedMovies() = flow {
         try {
             val result = apiService.getTopRatedMovies()
 
@@ -21,7 +20,20 @@ class MovieRemoteDataSource @Inject constructor(private val apiService: ApiServi
                 emit(ApiState.Success(result.results))
             }
         } catch (e: Exception) {
-            Log.d("MovieResults", e.message.toString())
+            emit(ApiState.Failed(e.message.toString()))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun getNowPlayingMovies() = flow {
+        try {
+            val result = apiService.getNowPlayingMovies()
+
+            if (result.results.isEmpty()) {
+                emit(ApiState.Empty)
+            } else {
+                emit(ApiState.Success(result.results))
+            }
+        } catch (e: Exception) {
             emit(ApiState.Failed(e.message.toString()))
         }
     }.flowOn(Dispatchers.IO)

@@ -9,4 +9,5 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val movieUseCase: MovieUseCase) : ViewModel() {
     fun getTopRatedMovies() = movieUseCase.getTopRatedMovies().asLiveData()
+    fun getNowPlayingMovies() = movieUseCase.getNowPlayingMovies().asLiveData()
 }
