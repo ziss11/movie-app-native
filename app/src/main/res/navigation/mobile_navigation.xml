@@ -12,9 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_favorite"
-        android:name="com.ziss.movieapp.presentation.ui.fragments.FavoriteFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_favorite" />
+        android:id="@+id/navigation_watchlist"
+        android:name="com.ziss.watchlist.WatchlistFragment"
+        android:label="Watchlist"
+        app:moduleName="watchlist"
+        tools:layout="@layout/fragment_watchlist" />
 
 </navigation>

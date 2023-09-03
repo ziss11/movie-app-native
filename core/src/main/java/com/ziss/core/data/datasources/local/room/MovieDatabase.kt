@@ -9,7 +9,7 @@ import com.ziss.core.data.datasources.local.entities.TypeEntity
 
 @Database(
     entities = [MovieEntity::class, TypeEntity::class, GenreEntity::class, GenreMovieCrossRef::class],
-    version = 3,
+    version = 1,
     exportSchema = false
 )
 abstract class MovieDatabase : RoomDatabase() {

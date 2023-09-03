@@ -22,18 +22,34 @@ fun ImageView.loadImage(url: Any?) {
         .error(R.drawable.ic_broken_image_24).into(this)
 }
 
-fun List<Genre>.toGenreModel() = this.map {
+fun Movie.toMovieEntity() = MovieEntity(
+    id = this.id,
+    overview = this.overview,
+    originalLanguage = this.originalLanguage,
+    originalTitle = this.originalTitle,
+    video = this.video,
+    title = this.title,
+    posterPath = this.posterPath,
+    backdropPath = this.backdropPath,
+    releaseDate = this.releaseDate,
+    popularity = this.popularity.toDouble(),
+    voteAverage = this.voteAverage.toDouble(),
+    adult = this.adult,
+    voteCount = this.voteCount,
+)
+
+fun List<Genre>.toGenreModelList() = this.map {
     GenreModel(id = it.id, name = it.name)
 }
 
-fun List<Movie>.toMovieModel() = this.map {
+fun List<Movie>.toMovieModelList() = this.map {
     MovieModel(
         id = it.id,
         overview = it.overview,
         originalLanguage = it.originalLanguage,
         originalTitle = it.originalTitle,
         video = it.video,
-        genres = it.genres.toGenreModel(),
+        genres = it.genres.toGenreModelList(),
         title = it.title,
         posterPath = it.posterPath,
         backdropPath = it.backdropPath,
@@ -54,22 +70,21 @@ fun List<GenreResponse>.toGenreEntityList() = this.map {
 }
 
 fun List<MovieWithGenreEntity>.toMovieList() = this.map {
-    val movieAndType = it.movieAndType
     Movie(
-        id = movieAndType.movie.id,
-        overview = movieAndType.movie.overview,
-        originalLanguage = movieAndType.movie.originalLanguage,
-        originalTitle = movieAndType.movie.originalTitle,
-        video = movieAndType.movie.video,
+        id = it.movie.id,
+        overview = it.movie.overview,
+        originalLanguage = it.movie.originalLanguage,
+        originalTitle = it.movie.originalTitle,
+        video = it.movie.video,
         genres = it.genres.toGenreList(),
-        title = movieAndType.movie.title,
-        posterPath = movieAndType.movie.posterPath,
-        backdropPath = movieAndType.movie.backdropPath,
-        releaseDate = movieAndType.movie.releaseDate,
-        popularity = movieAndType.movie.popularity,
-        voteAverage = movieAndType.movie.voteAverage,
-        adult = movieAndType.movie.adult,
-        voteCount = movieAndType.movie.voteCount,
+        title = it.movie.title,
+        posterPath = it.movie.posterPath,
+        backdropPath = it.movie.backdropPath,
+        releaseDate = it.movie.releaseDate,
+        popularity = it.movie.popularity,
+        voteAverage = it.movie.voteAverage,
+        adult = it.movie.adult,
+        voteCount = it.movie.voteCount,
     )
 }
 
@@ -98,7 +113,7 @@ fun <T, R> Flow<ResultState<T>>.toModelLiveData(
     return this.map { resultState ->
         when (resultState) {
             is ResultState.Success -> {
-                val data = resultState.data!!.let { mapper(it) }
+                val data = mapper(resultState.data!!)
                 ResultState.Success(data)
             }
 

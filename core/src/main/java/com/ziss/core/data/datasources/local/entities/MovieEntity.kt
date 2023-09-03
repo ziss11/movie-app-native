@@ -11,7 +11,10 @@ data class MovieEntity(
     val id: Int,
 
     @ColumnInfo("typeId")
-    val typeId: Int,
+    val typeId: Int? = null,
+
+    @ColumnInfo("isWatchlist")
+    var isWatchlist: Boolean = false,
 
     @ColumnInfo("overview")
     val overview: String,

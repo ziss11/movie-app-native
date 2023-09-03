@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    tools:context=".WatchlistFragment">
+
+    <include
+        android:id="@+id/appbar_layout"
+        layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/watchlist"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold|normal"
+        app:layout_constraintBottom_toBottomOf="@+id/appbar_layout"
+        app:layout_constraintEnd_toEndOf="@+id/appbar_layout"
+        app:layout_constraintStart_toStartOf="@+id/appbar_layout"
+        app:layout_constraintTop_toTopOf="@+id/appbar_layout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_watchlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="80dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
+        tools:itemCount="10"
+        tools:listitem="@layout/movie_tile_item" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appbar_layout">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/empty_movie_state"
+            android:src="@drawable/img_empty" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/empty_movie_title"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold|normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/empty_movie_subtitle"
+            android:textAlignment="center"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            android:textStyle="bold|normal" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

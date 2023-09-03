@@ -1,28 +1,17 @@
 plugins {
-    id("com.android.application")
+    id("com.android.dynamic-feature")
     id("org.jetbrains.kotlin.android")
-    id("com.google.dagger.hilt.android")
-    id("com.google.devtools.ksp")
 }
-
-apply(from = "../shared_dependencies.gradle")
-
 android {
-    namespace = "com.ziss.movieapp"
-    compileSdk = 34
+    namespace = "com.ziss.watchlist"
+    compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.ziss.movieapp"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
         viewBinding = true
-        buildConfig = true
     }
     buildTypes {
         release {
@@ -40,9 +29,10 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    dynamicFeatures += setOf(":watchlist")
+
 }
 
 dependencies {
+    implementation(project(":app"))
     implementation(project(":core"))
 }

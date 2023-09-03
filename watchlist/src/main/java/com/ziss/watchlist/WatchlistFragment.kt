@@ -1,18 +1,16 @@
-package com.ziss.movieapp.presentation.ui.fragments
+package com.ziss.watchlist
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ziss.movieapp.R
 
-
-class FavoriteFragment : Fragment() {
+class WatchlistFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_favorite, container, false)
+        return inflater.inflate(R.layout.fragment_watchlist, container, false)
     }
 }

@@ -13,6 +13,7 @@ import com.ziss.core.domain.repositories.IMovieRepository
 import com.ziss.core.utils.NetworkBoundResource
 import com.ziss.core.utils.toGenreEntityList
 import com.ziss.core.utils.toGenreList
+import com.ziss.core.utils.toMovieEntity
 import com.ziss.core.utils.toMovieEntityList
 import com.ziss.core.utils.toMovieList
 import kotlinx.coroutines.flow.map
@@ -49,7 +50,7 @@ class MovieRepository @Inject constructor(
                 localDataSource.insertTopRatedMovies(data.toMovieEntityList(type.id))
             }
 
-            override fun shouldFetch(data: List<Movie>?): Boolean = data == null || data.isEmpty()
+            override fun shouldFetch(data: List<Movie>?): Boolean = data.isNullOrEmpty()
 
         }.toFlow()
 
@@ -75,7 +76,7 @@ class MovieRepository @Inject constructor(
                 localDataSource.insertNowPlayingMovies(data.toMovieEntityList(type.id))
             }
 
-            override fun shouldFetch(data: List<Movie>?): Boolean = data == null || data.isEmpty()
+            override fun shouldFetch(data: List<Movie>?): Boolean = data.isNullOrEmpty()
 
         }.toFlow()
 
@@ -90,7 +91,16 @@ class MovieRepository @Inject constructor(
             override suspend fun saveCallResult(data: List<GenreResponse>) =
                 localDataSource.insertMoviesGenre(data.toGenreEntityList())
 
-            override fun shouldFetch(data: List<Genre>?): Boolean = data == null || data.isEmpty()
+            override fun shouldFetch(data: List<Genre>?): Boolean = data.isNullOrEmpty()
 
         }.toFlow()
+
+    override fun getWatchlistMovies() = localDataSource.getWatchlistMovies().map {
+        it.toMovieList()
+    }
+
+    override fun setWatchlistMovie(movie: Movie, isWatchlist: Boolean) {
+        val movieEntity = movie.toMovieEntity()
+        localDataSource.setWatchlistMovie(movieEntity, isWatchlist)
+    }
 }

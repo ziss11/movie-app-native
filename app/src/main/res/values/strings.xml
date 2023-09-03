@@ -5,7 +5,7 @@
     <string name="movie_image_desc">Movie Image</string>
     <string name="top_rated">Top Rated</string>
     <string name="home">Home</string>
-    <string name="favorite">Favorite</string>
+    <string name="watchlist">Watchlist</string>
     <string name="upcoming">Upcoming</string>
     <string name="popular">Popular</string>
     <string name="now_playing">Now Playing</string>
@@ -13,4 +13,5 @@
     <string name="unable_load_movies">Unable to load movies</string>
     <string name="overview_title">Overview</string>
     <string name="detail">Detail</string>
+    <string name="title_watchlist">Watchlist Movie</string>
 </resources>

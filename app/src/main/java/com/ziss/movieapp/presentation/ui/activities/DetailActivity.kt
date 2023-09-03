@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.ziss.core.presentation.models.MovieModel
@@ -25,10 +27,21 @@ class DetailActivity : AppCompatActivity() {
         getMovieData()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.detail_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.watchlist_action -> {}
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setToolbar() {
         setSupportActionBar(binding.appbarLayout.toolbar)
         supportActionBar?.title = ""
-        binding.toolbarTitle.text = getString(R.string.detail)
         binding.appbarLayout.toolbar.navigationIcon =
             ContextCompat.getDrawable(this, R.drawable.ic_arrow_back)
 

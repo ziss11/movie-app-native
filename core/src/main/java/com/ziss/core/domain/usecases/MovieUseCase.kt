@@ -9,4 +9,6 @@ interface MovieUseCase {
     fun getTopRatedMovies(): Flow<ResultState<List<Movie>>>
     fun getNowPlayingMovies(): Flow<ResultState<List<Movie>>>
     fun getMoviesGenre(): Flow<ResultState<List<Genre>>>
+    fun getWatchlistMovies(): Flow<List<Movie>>
+    fun setWatchlistMovie(movie: Movie, isWatchlist: Boolean)
 }
