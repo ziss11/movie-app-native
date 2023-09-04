@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.ziss.core.presentation.models.MovieModel
 import com.ziss.core.utils.Constants
 import com.ziss.core.utils.loadImage
@@ -48,10 +50,12 @@ class DetailActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.watchlist_action -> {
                 if (movie != null) {
+                    Log.d("Watchlist", isWatchlist.toString())
+
                     if (isWatchlist == 1) {
-                        detailViewModel.setWatchlistMovie(movie?.id!!, 0)
+                        detailViewModel.removeWatchlistMovie(movie?.id!!)
                     } else {
-                        detailViewModel.setWatchlistMovie(movie?.id!!, 1)
+                        detailViewModel.addWatchlistMovie(movie!!)
                     }
                 }
             }
@@ -97,8 +101,11 @@ class DetailActivity : AppCompatActivity() {
             movieCard.ivMovie.loadImage("${Constants.IMAGE_BASE_URL}${movie?.posterPath}")
             tvRating.text = movie?.voteAverage.toString()
             tvMovieTitle.text = movie?.title
-            tvReleaseYear.text = movie?.releaseDate?.substring(0, 4)
-            tvGenre.text = movie?.genres?.joinToString(", ") { it.name }
+            if (!movie?.releaseDate.isNullOrEmpty()) {
+                tvReleaseYear.text = movie?.releaseDate?.substring(0, 4)
+            } else {
+                tvReleaseYear.isVisible = false
+            }
             tvOverview.text = movie?.overview
         }
     }

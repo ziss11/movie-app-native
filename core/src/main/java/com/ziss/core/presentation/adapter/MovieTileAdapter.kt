@@ -2,6 +2,7 @@ package com.ziss.core.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ziss.core.databinding.MovieTileItemBinding
@@ -22,18 +23,21 @@ class MovieTileAdapter : RecyclerView.Adapter<MovieTileAdapter.ListViewHolder>()
     inner class ListViewHolder(private val binding: MovieTileItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MovieModel) {
-            binding.ivMovie.loadImage("${Constants.IMAGE_BASE_URL}${movie.posterPath}")
-            binding.tvTitle.text = movie.title
-            binding.tvGenre.text = movie.genres.joinToString(", ") { it.name }
-            binding.tvRating.text = movie.voteAverage.toString()
-            binding.tvReleaseYear.text = movie.releaseDate.substring(0, 4)
-            itemView.setOnClickListener { onItemClickCallback.onItemClicked(movie) }
+            binding.apply {
+                ivMovie.loadImage("${Constants.IMAGE_BASE_URL}${movie.posterPath}")
+                tvTitle.text = movie.title
+                tvRating.text = movie.voteAverage.toString()
+                if (!movie.releaseDate.isNullOrEmpty()) {
+                    tvReleaseYear.text = movie.releaseDate.substring(0, 4)
+                } else {
+                    tvReleaseYear.isVisible = false
+                }
+                itemView.setOnClickListener { onItemClickCallback.onItemClicked(movie) }
+            }
         }
     }
 
-    override
-
-    fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding =
             MovieTileItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListViewHolder(binding)

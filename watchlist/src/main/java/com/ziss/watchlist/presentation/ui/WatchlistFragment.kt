@@ -48,7 +48,7 @@ class WatchlistFragment : Fragment() {
 
     private fun fetchWatchlistMovies() {
         watchlistViewModel.getWatchlistMovies().observe(requireActivity()) { result ->
-            if (result.isEmpty()) {
+            if (result.isNullOrEmpty()) {
                 showMessage()
             } else {
                 showMessage(false)

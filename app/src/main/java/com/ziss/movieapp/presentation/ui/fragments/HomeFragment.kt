@@ -15,9 +15,14 @@ import com.ziss.core.utils.MarginItemDecoration
 import com.ziss.core.utils.ResultState
 import com.ziss.movieapp.databinding.FragmentHomeBinding
 import com.ziss.movieapp.presentation.ui.activities.DetailActivity
+import com.ziss.movieapp.presentation.ui.activities.SearchActivity
 import com.ziss.movieapp.presentation.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 
+@ExperimentalCoroutinesApi
+@FlowPreview
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -40,12 +45,11 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setToolbar()
+        fetchTopRatedMovies()
+        fetchNowPlayingMovies()
 
-        homeViewModel.getMoviesGenre().observe(requireActivity()) { result ->
-            if (result is ResultState.Success) {
-                setTopRatedAdapter()
-                setNowPlayingAdapter()
-            }
+        binding.searchLayout.edSearch.setOnClickListener {
+            SearchActivity.start(requireActivity())
         }
     }
 
@@ -55,7 +59,7 @@ class HomeFragment : Fragment() {
         activity.supportActionBar?.title = ""
     }
 
-    private fun setTopRatedAdapter() {
+    private fun setTopRatedAdapter(movies: List<MovieModel>) {
         val layout = LinearLayoutManager(
             requireActivity(), LinearLayoutManager.HORIZONTAL,
             false
@@ -75,10 +79,10 @@ class HomeFragment : Fragment() {
             addItemDecoration(decoration)
         }
 
-        fetchTopRatedMovies()
+        movieCardAdapter.setMovies(movies)
     }
 
-    private fun setNowPlayingAdapter() {
+    private fun setNowPlayingAdapter(movies: List<MovieModel>) {
         val layout = object : LinearLayoutManager(requireActivity()) {
             override fun canScrollVertically(): Boolean {
                 return false
@@ -97,8 +101,9 @@ class HomeFragment : Fragment() {
             layoutManager = layout
         }
 
-        fetchNowPlayingMovies()
+        movieTileAdapter.setMovies(movies)
     }
+
 
     private fun fetchTopRatedMovies() {
         homeViewModel.getTopRatedMovies().observe(requireActivity()) { result ->
@@ -109,8 +114,8 @@ class HomeFragment : Fragment() {
                     showTopRatedProgressBar(false)
                     val movies = result.data
 
-                    if (!movies.isNullOrEmpty()) {
-                        movieCardAdapter.setMovies(movies)
+                    if (movies.isNotEmpty()) {
+                        setTopRatedAdapter(movies)
                     } else {
                         showTopRatedMessage()
                     }
@@ -133,8 +138,8 @@ class HomeFragment : Fragment() {
                     showPopularProgressBar(false)
                     val movies = result.data
 
-                    if (!movies.isNullOrEmpty()) {
-                        movieTileAdapter.setMovies(movies)
+                    if (movies.isNotEmpty()) {
+                        setNowPlayingAdapter(movies)
                     } else {
                         showPopularMessage()
                     }

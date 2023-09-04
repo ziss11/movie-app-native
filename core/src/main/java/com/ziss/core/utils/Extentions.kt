@@ -13,9 +13,9 @@ fun ImageView.loadImage(url: Any?) {
         .error(R.drawable.ic_broken_image_24).into(this)
 }
 
-fun <T, R> Flow<ResultState<T>>.toModelResultLiveData(
+fun <T, R> Flow<ResultState<T>>.mapResult(
     mapper: suspend (T) -> R
-): LiveData<ResultState<R>> {
+): Flow<ResultState<R>> {
     return this.map { resultState ->
         when (resultState) {
             is ResultState.Success -> {
@@ -28,10 +28,10 @@ fun <T, R> Flow<ResultState<T>>.toModelResultLiveData(
             }
 
             is ResultState.Loading -> {
-                ResultState.Loading()
+                ResultState.Loading
             }
         }
-    }.asLiveData()
+    }
 }
 
 fun <T, R> Flow<T>.toModelLiveData(

@@ -126,19 +126,6 @@
                     tools:text="2019" />
 
                 <TextView
-                    android:id="@+id/tv_genre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="8dp"
-                    android:drawablePadding="4dp"
-                    android:includeFontPadding="false"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    app:drawableStartCompat="@drawable/ic_ticket"
-                    tools:text="Action" />
-
-                <TextView
                     android:id="@+id/tv_overview_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

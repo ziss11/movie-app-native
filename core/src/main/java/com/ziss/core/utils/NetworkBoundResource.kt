@@ -20,12 +20,12 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
 
     fun toFlow() = flow {
         Log.d("Popular", "loaded")
-        emit(ResultState.Loading())
+        emit(ResultState.Loading)
 
         val dbSource = loadFromDB().first()
 
         if (shouldFetch(dbSource)) {
-            emit(ResultState.Loading())
+            emit(ResultState.Loading)
 
             val apiResponse = createCall().first()
             when (apiResponse) {

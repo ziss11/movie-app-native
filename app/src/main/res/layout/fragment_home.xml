@@ -17,21 +17,13 @@
             android:id="@+id/appbar_layout"
             layout="@layout/toolbar" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_search"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+        <include
+            android:id="@+id/search_layout"
+            layout="@layout/search_textfield"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginHorizontal="16dp"
-            android:background="@drawable/bg_rounded_edit_text"
-            android:drawableEnd="@drawable/ic_search"
-            android:focusableInTouchMode="true"
-            android:hint="@string/search"
-            android:inputType="text"
-            android:paddingHorizontal="24dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/grey"
-            android:textSize="14sp" />
+            android:layout_marginHorizontal="16dp" />
 
     </FrameLayout>
 
