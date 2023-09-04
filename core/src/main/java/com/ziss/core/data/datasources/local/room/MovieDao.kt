@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import androidx.room.Update
 import com.ziss.core.data.datasources.local.entities.GenreEntity
 import com.ziss.core.data.datasources.local.entities.GenreMovieCrossRef
 import com.ziss.core.data.datasources.local.entities.MovieEntity
@@ -26,6 +25,9 @@ interface MovieDao {
     @Query("SELECT * FROM movie WHERE isWatchlist=1")
     fun getWatchlistMovies(): Flow<List<MovieWithGenreEntity>>
 
+    @Query("SELECT EXISTS(SELECT * FROM movie WHERE id=:id AND isWatchlist=1)")
+    fun isWatchlist(id: Int): Flow<Boolean>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTopRatedMovies(movies: List<MovieEntity>)
 
@@ -41,6 +43,6 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovieType(type: TypeEntity)
 
-    @Update
-    fun updateWatchlistMovie(movie: MovieEntity)
+    @Query("UPDATE movie SET isWatchlist=:isWatchlist WHERE id=:id")
+    suspend fun updateWatchlistMovie(id: Int, isWatchlist: Int)
 }

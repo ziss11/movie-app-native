@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.ziss.core.presentation.models.MovieModel
@@ -13,11 +14,19 @@ import com.ziss.core.utils.Constants
 import com.ziss.core.utils.loadImage
 import com.ziss.movieapp.R
 import com.ziss.movieapp.databinding.ActivityDetailBinding
+import com.ziss.movieapp.presentation.viewmodels.DetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
 
+    private var menu: Menu? = null
     private var movie: MovieModel? = null
+    private var isWatchlist = 0
+
+    private val detailViewModel: DetailViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -29,12 +38,23 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.detail_menu, menu)
+        this.menu = menu
+
+        checkWatchlist()
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.watchlist_action -> {}
+            R.id.watchlist_action -> {
+                if (movie != null) {
+                    if (isWatchlist == 1) {
+                        detailViewModel.setWatchlistMovie(movie?.id!!, 0)
+                    } else {
+                        detailViewModel.setWatchlistMovie(movie?.id!!, 1)
+                    }
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -47,6 +67,20 @@ class DetailActivity : AppCompatActivity() {
 
         binding.appbarLayout.toolbar.setNavigationOnClickListener {
             onBackPressed()
+        }
+    }
+
+    private fun checkWatchlist() {
+        detailViewModel.getWatchlistStatus(movie?.id!!).observe(this) { isWatchlist ->
+            if (isWatchlist) {
+                this.isWatchlist = 1
+                menu?.getItem(0)?.icon =
+                    ContextCompat.getDrawable(this, R.drawable.ic_watchlist_filled)
+            } else {
+                this.isWatchlist = 0
+                menu?.getItem(0)?.icon =
+                    ContextCompat.getDrawable(this, R.drawable.ic_watchlist_white)
+            }
         }
     }
 

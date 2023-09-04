@@ -11,22 +11,6 @@ import com.ziss.core.presentation.models.GenreModel
 import com.ziss.core.presentation.models.MovieModel
 
 object DataMapper {
-    fun toMovieEntity(movie: Movie) = MovieEntity(
-        id = movie.id,
-        overview = movie.overview,
-        originalLanguage = movie.originalLanguage,
-        originalTitle = movie.originalTitle,
-        video = movie.video,
-        title = movie.title,
-        posterPath = movie.posterPath,
-        backdropPath = movie.backdropPath,
-        releaseDate = movie.releaseDate,
-        popularity = movie.popularity.toDouble(),
-        voteAverage = movie.voteAverage.toDouble(),
-        adult = movie.adult,
-        voteCount = movie.voteCount,
-    )
-
     fun toMovieEntity(movie: MovieResponse, typeId: Int) = MovieEntity(
         id = movie.id,
         typeId = typeId,
@@ -59,23 +43,6 @@ object DataMapper {
         voteAverage = movie.movie.voteAverage,
         adult = movie.movie.adult,
         voteCount = movie.movie.voteCount,
-    )
-
-    fun toMovie(movie: MovieModel) = Movie(
-        id = movie.id,
-        overview = movie.overview,
-        originalLanguage = movie.originalLanguage,
-        originalTitle = movie.originalTitle,
-        video = movie.video,
-        genres = movie.genres.map { toGenre(it) },
-        title = movie.title,
-        posterPath = movie.posterPath,
-        backdropPath = movie.backdropPath,
-        releaseDate = movie.releaseDate,
-        popularity = movie.popularity,
-        voteAverage = movie.voteAverage,
-        adult = movie.adult,
-        voteCount = movie.voteCount,
     )
 
     fun toMovieModel(movie: Movie) = MovieModel(

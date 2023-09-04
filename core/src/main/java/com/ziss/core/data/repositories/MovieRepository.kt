@@ -97,8 +97,9 @@ class MovieRepository @Inject constructor(
         movies.map { DataMapper.toMovie(it) }
     }
 
-    override fun setWatchlistMovie(movie: Movie, isWatchlist: Boolean) {
-        val movieEntity = DataMapper.toMovieEntity(movie)
-        localDataSource.setWatchlistMovie(movieEntity, isWatchlist)
+    override fun getWatchlistStatus(id: Int) = localDataSource.isWatchlist(id)
+
+    override suspend fun setWatchlistMovie(id: Int, isWatchlist: Int) {
+        localDataSource.setWatchlistMovie(id, isWatchlist)
     }
 }

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="empty_movie_state">Empty Movie</string>
-    <string name="empty_movie_title">There is no movie yet!</string>
-    <string name="empty_movie_subtitle">Find your movie by Type title, \ncategories, years, etc</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="empty_watchlist_title">There is no watchlist yet!</string>
     <string name="watchlist">Watchlist</string>
 </resources>

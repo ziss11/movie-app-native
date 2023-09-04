@@ -40,43 +40,19 @@
         tools:itemCount="10"
         tools:listitem="@layout/movie_tile_item" />
 
-    <LinearLayout
+    <TextView
         android:id="@+id/empty_state"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
+        android:drawablePadding="16dp"
+        android:text="@string/empty_watchlist_title"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold|normal"
+        app:drawableTopCompat="@drawable/img_empty"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/empty_movie_state"
-            android:src="@drawable/img_empty" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/empty_movie_title"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold|normal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/empty_movie_subtitle"
-            android:textAlignment="center"
-            android:textColor="@color/grey"
-            android:textSize="12sp"
-            android:textStyle="bold|normal" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

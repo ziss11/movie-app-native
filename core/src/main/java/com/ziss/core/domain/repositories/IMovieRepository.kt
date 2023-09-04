@@ -10,5 +10,6 @@ interface IMovieRepository {
     fun getNowPlayingMovies(): Flow<ResultState<List<Movie>>>
     fun getMoviesGenre(): Flow<ResultState<List<Genre>>>
     fun getWatchlistMovies(): Flow<List<Movie>>
-    fun setWatchlistMovie(movie: Movie, isWatchlist: Boolean)
+    fun getWatchlistStatus(id: Int): Flow<Boolean>
+    suspend fun setWatchlistMovie(id: Int, isWatchlist: Int)
 }

@@ -51,6 +51,7 @@ class WatchlistFragment : Fragment() {
             if (result.isEmpty()) {
                 showMessage()
             } else {
+                showMessage(false)
                 movieTileAdapter.setMovies(result)
             }
         }
@@ -79,6 +80,12 @@ class WatchlistFragment : Fragment() {
     }
 
     private fun showMessage(isShow: Boolean = true) {
-        binding.emptyState.visibility = if (isShow) View.VISIBLE else View.GONE
+        if (isShow) {
+            binding.emptyState.visibility = View.VISIBLE
+            binding.rvWatchlist.visibility = View.INVISIBLE
+        } else {
+            binding.emptyState.visibility = View.GONE
+            binding.rvWatchlist.visibility = View.VISIBLE
+        }
     }
 }

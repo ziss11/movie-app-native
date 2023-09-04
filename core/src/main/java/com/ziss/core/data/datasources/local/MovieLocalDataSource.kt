@@ -16,6 +16,8 @@ class MovieLocalDataSource @Inject constructor(private val movieDao: MovieDao) {
 
     fun getWatchlistMovies() = movieDao.getWatchlistMovies()
 
+    fun isWatchlist(id: Int) = movieDao.isWatchlist(id)
+
     suspend fun insertTopRatedMovies(movies: List<MovieEntity>) =
         movieDao.insertTopRatedMovies(movies)
 
@@ -31,8 +33,7 @@ class MovieLocalDataSource @Inject constructor(private val movieDao: MovieDao) {
     suspend fun insertMovieType(movieType: TypeEntity) =
         movieDao.insertMovieType(movieType)
 
-    fun setWatchlistMovie(movie: MovieEntity, isWatchlist: Boolean) {
-        movie.isWatchlist = isWatchlist
-        movieDao.updateWatchlistMovie(movie)
+    suspend fun setWatchlistMovie(id: Int, isWatchlist: Int) {
+        movieDao.updateWatchlistMovie(id, isWatchlist)
     }
 }
