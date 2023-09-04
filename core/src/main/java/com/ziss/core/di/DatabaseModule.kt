@@ -21,6 +21,7 @@ class DatabaseModule {
             .fallbackToDestructiveMigration()
             .build()
 
+    @Singleton
     @Provides
     fun provideMovieDao(database: MovieDatabase): MovieDao = database.movieDao()
 }

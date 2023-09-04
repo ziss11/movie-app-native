@@ -1,6 +1,5 @@
 package com.ziss.core.data.repositories
 
-import android.util.Log
 import com.ziss.core.data.datasources.local.MovieLocalDataSource
 import com.ziss.core.data.datasources.local.entities.GenreMovieCrossRef
 import com.ziss.core.data.datasources.local.entities.TypeEntity
@@ -10,12 +9,8 @@ import com.ziss.core.data.datasources.remote.responses.MovieResponse
 import com.ziss.core.domain.entities.Genre
 import com.ziss.core.domain.entities.Movie
 import com.ziss.core.domain.repositories.IMovieRepository
+import com.ziss.core.utils.DataMapper
 import com.ziss.core.utils.NetworkBoundResource
-import com.ziss.core.utils.toGenreEntityList
-import com.ziss.core.utils.toGenreList
-import com.ziss.core.utils.toMovieEntity
-import com.ziss.core.utils.toMovieEntityList
-import com.ziss.core.utils.toMovieList
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -29,9 +24,8 @@ class MovieRepository @Inject constructor(
 
     override fun getTopRatedMovies() =
         object : NetworkBoundResource<List<Movie>, List<MovieResponse>>() {
-            override fun loadFromDB() = localDataSource.getTopRatedMovies().map {
-                Log.d("MovieResult", it.toString())
-                it.toMovieList()
+            override fun loadFromDB() = localDataSource.getTopRatedMovies().map { movies ->
+                movies.map { DataMapper.toMovie(it) }
             }
 
             override suspend fun createCall() = remoteDataSource.getTopRatedMovies()
@@ -45,9 +39,11 @@ class MovieRepository @Inject constructor(
                     }
                 }.flatten()
 
+                val movies = data.map { DataMapper.toMovieEntity(it, type.id) }
+
                 localDataSource.insertGenreMovieCrossRef(genreMovieCrossRef)
                 localDataSource.insertMovieType(type)
-                localDataSource.insertTopRatedMovies(data.toMovieEntityList(type.id))
+                localDataSource.insertTopRatedMovies(movies)
             }
 
             override fun shouldFetch(data: List<Movie>?): Boolean = data.isNullOrEmpty()
@@ -56,8 +52,8 @@ class MovieRepository @Inject constructor(
 
     override fun getNowPlayingMovies() =
         object : NetworkBoundResource<List<Movie>, List<MovieResponse>>() {
-            override fun loadFromDB() = localDataSource.getNowPlayingMovies().map {
-                it.toMovieList()
+            override fun loadFromDB() = localDataSource.getNowPlayingMovies().map { movies ->
+                movies.map { DataMapper.toMovie(it) }
             }
 
             override suspend fun createCall() = remoteDataSource.getNowPlayingMovies()
@@ -71,9 +67,11 @@ class MovieRepository @Inject constructor(
                     }
                 }.flatten()
 
+                val movies = data.map { DataMapper.toMovieEntity(it, type.id) }
+
                 localDataSource.insertGenreMovieCrossRef(genreMovieCrossRef)
                 localDataSource.insertMovieType(type)
-                localDataSource.insertNowPlayingMovies(data.toMovieEntityList(type.id))
+                localDataSource.insertNowPlayingMovies(movies)
             }
 
             override fun shouldFetch(data: List<Movie>?): Boolean = data.isNullOrEmpty()
@@ -82,25 +80,25 @@ class MovieRepository @Inject constructor(
 
     override fun getMoviesGenre() =
         object : NetworkBoundResource<List<Genre>, List<GenreResponse>>() {
-            override fun loadFromDB() = localDataSource.getMoviesGenre().map {
-                it.toGenreList()
+            override fun loadFromDB() = localDataSource.getMoviesGenre().map { movies ->
+                movies.map { DataMapper.toGenre(it) }
             }
 
             override suspend fun createCall() = remoteDataSource.getMoviesGenre()
 
             override suspend fun saveCallResult(data: List<GenreResponse>) =
-                localDataSource.insertMoviesGenre(data.toGenreEntityList())
+                localDataSource.insertMoviesGenre(data.map { DataMapper.toGenreEntity(it) })
 
             override fun shouldFetch(data: List<Genre>?): Boolean = data.isNullOrEmpty()
 
         }.toFlow()
 
-    override fun getWatchlistMovies() = localDataSource.getWatchlistMovies().map {
-        it.toMovieList()
+    override fun getWatchlistMovies() = localDataSource.getWatchlistMovies().map { movies ->
+        movies.map { DataMapper.toMovie(it) }
     }
 
     override fun setWatchlistMovie(movie: Movie, isWatchlist: Boolean) {
-        val movieEntity = movie.toMovieEntity()
+        val movieEntity = DataMapper.toMovieEntity(movie)
         localDataSource.setWatchlistMovie(movieEntity, isWatchlist)
     }
 }

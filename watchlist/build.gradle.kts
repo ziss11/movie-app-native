@@ -1,7 +1,12 @@
 plugins {
     id("com.android.dynamic-feature")
     id("org.jetbrains.kotlin.android")
+    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
+
+apply(from = "../shared_dependencies.gradle")
+
 android {
     namespace = "com.ziss.watchlist"
     compileSdk = 33

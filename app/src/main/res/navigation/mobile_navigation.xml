@@ -11,11 +11,10 @@
         android:label="Home"
         tools:layout="@layout/fragment_home" />
 
-    <fragment
+    <include-dynamic
         android:id="@+id/navigation_watchlist"
-        android:name="com.ziss.watchlist.WatchlistFragment"
-        android:label="Watchlist"
-        app:moduleName="watchlist"
-        tools:layout="@layout/fragment_watchlist" />
+        app:graphPackage="${applicationId}.watchlist"
+        app:graphResName="navigation_watchlist"
+        app:moduleName="watchlist" />
 
 </navigation>

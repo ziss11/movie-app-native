@@ -2,19 +2,22 @@ package com.ziss.movieapp.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.ziss.core.domain.usecases.MovieUseCase
-import com.ziss.core.utils.toGenreModelList
-import com.ziss.core.utils.toModelLiveData
-import com.ziss.core.utils.toMovieModelList
+import com.ziss.core.utils.DataMapper
+import com.ziss.core.utils.toModelResultLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val movieUseCase: MovieUseCase) : ViewModel() {
-    fun getMoviesGenre() = movieUseCase.getMoviesGenre().toModelLiveData { it.toGenreModelList() }
+    fun getMoviesGenre() = movieUseCase.getMoviesGenre().toModelResultLiveData { genres ->
+        genres.map { DataMapper.toGenreModel(it) }
+    }
 
-    fun getTopRatedMovies() =
-        movieUseCase.getTopRatedMovies().toModelLiveData { it.toMovieModelList() }
+    fun getTopRatedMovies() = movieUseCase.getTopRatedMovies().toModelResultLiveData { movies ->
+        movies.map { DataMapper.toMovieModel(it) }
+    }
 
-    fun getNowPlayingMovies() =
-        movieUseCase.getNowPlayingMovies().toModelLiveData { it.toMovieModelList() }
+    fun getNowPlayingMovies() = movieUseCase.getNowPlayingMovies().toModelResultLiveData { movies ->
+        movies.map { DataMapper.toMovieModel(it) }
+    }
 }

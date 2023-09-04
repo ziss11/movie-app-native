@@ -2,7 +2,7 @@ package com.ziss.movieapp.presentation.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.dynamicfeatures.fragment.DynamicNavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.ziss.movieapp.R
 import com.ziss.movieapp.databinding.ActivityMainBinding
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.container) as DynamicNavHostFragment
         val navController = navHostFragment.navController
 
         binding.navView.setupWithNavController(navController)
