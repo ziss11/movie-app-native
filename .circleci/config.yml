@@ -21,15 +21,12 @@ jobs:
           name: Download Dependencies
           command: ./gradlew androidDependencies
       - run:
-          name: Install Android SDK
+          name: Install Android SDK & Accept Licenses
           command: |
             wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip -O sdk-tools.zip
             unzip sdk-tools.zip -d $HOME/android-sdk
             export ANDROID_SDK_ROOT=$HOME/android-sdk
             export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
-      - run:
-          name: Accept Android SDK Licenses
-          command: |
             yes | sdkmanager --licenses
       - save_cache:
           key: 'android-orb-v1-{{ epoch }}'
