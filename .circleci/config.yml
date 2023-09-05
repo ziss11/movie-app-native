@@ -6,7 +6,6 @@ orbs:
 jobs:
   build:
     executor: android/android
-    runs-on: ubuntu-latest
     steps:
       - checkout
       - name: Set up Java
