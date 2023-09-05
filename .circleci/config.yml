@@ -6,8 +6,6 @@ orbs:
 jobs:
   build:
     executor: android/android-machine
-    docker:
-      - image: cimg/openjdk:17.0-node
     steps:
       - checkout
       - restore_cache:
