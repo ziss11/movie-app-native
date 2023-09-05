@@ -22,7 +22,8 @@ jobs:
           command: ./gradlew androidDependencies
       - run:
           name: Accept Android SDK Licenses
-          command: yes | sdkmanager --licenses
+          command: |
+            yes | sdkmanager --licenses
       - save_cache:
           key: 'android-orb-v1-{{ epoch }}'
           paths:
