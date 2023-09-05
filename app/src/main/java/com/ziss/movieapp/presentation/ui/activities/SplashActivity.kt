@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import com.ziss.core.utils.Constants
 import com.ziss.movieapp.databinding.ActivitySplashBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
 
         CoroutineScope(Dispatchers.Main).launch {
-            delay(3000L)
+            delay(Constants.SPLASH_DELAY)
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             finish()
         }

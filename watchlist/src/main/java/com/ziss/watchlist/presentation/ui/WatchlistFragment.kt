@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 class WatchlistFragment : Fragment() {
     private var _binding: FragmentWatchlistBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     private lateinit var movieTileAdapter: MovieTileAdapter
 
@@ -71,7 +71,7 @@ class WatchlistFragment : Fragment() {
             }
         })
 
-        binding.rvWatchlist.apply {
+        binding?.rvWatchlist?.apply {
             adapter = movieTileAdapter
             layoutManager = layout
         }
@@ -81,11 +81,11 @@ class WatchlistFragment : Fragment() {
 
     private fun showMessage(isShow: Boolean = true) {
         if (isShow) {
-            binding.emptyState.visibility = View.VISIBLE
-            binding.rvWatchlist.visibility = View.INVISIBLE
+            binding?.emptyState?.visibility = View.VISIBLE
+            binding?.rvWatchlist?.visibility = View.INVISIBLE
         } else {
-            binding.emptyState.visibility = View.GONE
-            binding.rvWatchlist.visibility = View.VISIBLE
+            binding?.emptyState?.visibility = View.GONE
+            binding?.rvWatchlist?.visibility = View.VISIBLE
         }
     }
 }

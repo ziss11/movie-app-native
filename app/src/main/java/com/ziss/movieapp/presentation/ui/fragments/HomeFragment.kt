@@ -26,7 +26,7 @@ import kotlinx.coroutines.FlowPreview
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     private lateinit var movieCardAdapter: MovieCardAdapter
     private lateinit var movieTileAdapter: MovieTileAdapter
@@ -48,14 +48,14 @@ class HomeFragment : Fragment() {
         fetchTopRatedMovies()
         fetchNowPlayingMovies()
 
-        binding.searchLayout.edSearch.setOnClickListener {
+        binding?.searchLayout?.edSearch?.setOnClickListener {
             SearchActivity.start(requireActivity())
         }
     }
 
     private fun setToolbar() {
         val activity = activity as AppCompatActivity
-        activity.setSupportActionBar(binding.appbarLayout.toolbar)
+        activity.setSupportActionBar(binding?.appbarLayout?.toolbar)
         activity.supportActionBar?.title = ""
     }
 
@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        binding.rvTopRated.apply {
+        binding?.rvTopRated?.apply {
             adapter = movieCardAdapter
             layoutManager = layout
             addItemDecoration(decoration)
@@ -96,7 +96,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        binding.rvPopular.apply {
+        binding?.rvPopular?.apply {
             adapter = movieTileAdapter
             layoutManager = layout
         }
@@ -154,30 +154,30 @@ class HomeFragment : Fragment() {
     }
 
     private fun showTopRatedProgressBar(isLoading: Boolean = true) {
-        binding.trProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding?.trProgressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showPopularProgressBar(isLoading: Boolean = true) {
-        binding.popularProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding?.popularProgressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showTopRatedMessage(isShow: Boolean = true) {
         if (isShow) {
-            binding.tvTrMessage.visibility = View.VISIBLE
-            binding.rvTopRated.visibility = View.INVISIBLE
+            binding?.tvTrMessage?.visibility = View.VISIBLE
+            binding?.rvTopRated?.visibility = View.INVISIBLE
         } else {
-            binding.tvTrMessage.visibility = View.GONE
-            binding.rvTopRated.visibility = View.VISIBLE
+            binding?.tvTrMessage?.visibility = View.GONE
+            binding?.rvTopRated?.visibility = View.VISIBLE
         }
     }
 
     private fun showPopularMessage(isShow: Boolean = true) {
         if (isShow) {
-            binding.tvPopularMessage.visibility = View.VISIBLE
-            binding.rvPopular.visibility = View.INVISIBLE
+            binding?.tvPopularMessage?.visibility = View.VISIBLE
+            binding?.rvPopular?.visibility = View.INVISIBLE
         } else {
-            binding.tvPopularMessage.visibility = View.GONE
-            binding.rvPopular.visibility = View.VISIBLE
+            binding?.tvPopularMessage?.visibility = View.GONE
+            binding?.rvPopular?.visibility = View.VISIBLE
         }
     }
 }
