@@ -6,8 +6,14 @@ orbs:
 jobs:
   build:
     executor: android/android
+    runs-on: ubuntu-latest
     steps:
       - checkout
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 17
       - restore_cache:
           key: android-orb-v1-
       - run:
