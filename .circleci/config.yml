@@ -5,8 +5,7 @@ orbs:
 
 jobs:
   build:
-    docker:
-      - image: cimg/openjdk:17.0-node
+    executor: android/android-machine
     steps:
       - checkout
       - restore_cache:
@@ -15,19 +14,8 @@ jobs:
           name: Chmod permissions
           command: sudo chmod +x ./gradlew
       - run:
-          name: Create Local Properties
-          command: echo "sdk.dir=$ANDROID_HOME" > local.properties
-      - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
-      - run:
-          name: Install Android SDK & Accept Licenses
-          command: |
-            wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip -O sdk-tools.zip
-            unzip sdk-tools.zip -d $HOME/android-sdk
-            export ANDROID_SDK_ROOT=$HOME/android-sdk
-            export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
-            yes | sdkmanager --licenses
       - save_cache:
           key: 'android-orb-v1-{{ epoch }}'
           paths:
