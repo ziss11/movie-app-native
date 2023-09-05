@@ -5,7 +5,8 @@ orbs:
 
 jobs:
   build:
-    executor: android/android-machine
+    docker:
+      - image: circleci/openjdk:17-jdk
     steps:
       - checkout
       - restore_cache:
