@@ -26,6 +26,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
+      - name: Create local.properties
+        run: echo "sdk.dir=${ANDROID_HOME}" > $GITHUB_WORKSPACE/local.properties
+
       - name: Download Dependencies
         run: ./gradlew androidDependencies
 
