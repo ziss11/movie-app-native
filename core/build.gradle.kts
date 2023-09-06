@@ -61,6 +61,9 @@ dependencies {
     implementation("androidx.room:room-runtime:2.5.2")
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
+    implementation("net.zetetic:android-database-sqlcipher:4.4.0")
+    implementation("androidx.sqlite:sqlite-ktx:2.3.1")
+
     api("androidx.navigation:navigation-fragment-ktx:2.7.0")
     api("androidx.navigation:navigation-ui-ktx:2.7.0")
     api("androidx.navigation:navigation-dynamic-features-fragment:2.7.0")
