@@ -11,9 +11,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    env:
-      ANDROID_HOME: ${{ runner.workspace }}/android-sdk
-
     steps:
       - uses: actions/checkout@v3
       - name: set up JDK 17
@@ -26,8 +23,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
-      - name: Create local.properties
-        run: echo "sdk.dir=${ANDROID_HOME}" > $GITHUB_WORKSPACE/local.properties
+      - name: Copy local.properties
+        run: cp ./local.properties $GITHUB_WORKSPACE/local.properties
 
       - name: Download Dependencies
         run: ./gradlew androidDependencies
