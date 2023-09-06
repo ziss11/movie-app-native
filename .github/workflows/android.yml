@@ -53,14 +53,13 @@ jobs:
         run: ./gradlew lint test
 
       - name: Store Test Results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: test-results
           path: app/build/test-results
 
       - name: Store APK Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: apk-artifact
           path: app/build/outputs/apk/debug/
-    
