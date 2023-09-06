@@ -11,6 +11,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      ANDROID_HOME: ${{ runner.workspace }}/android-sdk
+
     steps:
       - uses: actions/checkout@v3
       - name: set up JDK 17
@@ -23,9 +26,6 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
-      - name: Copy local.properties
-        run: cp ./local.properties $GITHUB_WORKSPACE/local.properties
-
       - name: Download Dependencies
         run: ./gradlew androidDependencies
 
@@ -33,11 +33,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.android/build-cache
-            ~/.android/cache
-          key: android-cache-{{ runner.os }}-{{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            android-cache-{{ runner.os }}-
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
 
       - name: Build with Gradle
         run: ./gradlew build
