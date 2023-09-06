@@ -1,0 +1,62 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+      
+    - name: Download Dependencies
+      run: ./gradlew androidDependencies
+      
+    - name: Cache Gradle Dependencies
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.android/build-cache
+          ~/.android/cache
+        key: android-cache-{{ runner.os }}-{{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          android-cache-{{ runner.os }}-
+          
+    - name: Build with Gradle
+      run: ./gradlew build
+      
+    - name: Store Build Reports
+      uses: actions/upload-artifact@v2
+      with:
+        name: reports
+        path: app/build/reports
+        
+    - name: Run Tests
+      run: ./gradlew lint test
+
+    - name: Store Test Results
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: app/build/test-results
+
+    - name: Store APK Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: apk-artifact
+        path: app/build/outputs/apk/debug/
+    
