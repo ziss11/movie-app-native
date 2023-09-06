@@ -43,12 +43,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Store Build Reports
-        uses: actions/upload-artifact@v3
-        with:
-          name: reports
-          path: app/build/reports
-
       - name: Run Tests
         run: ./gradlew lint test
 
