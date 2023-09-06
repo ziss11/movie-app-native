@@ -33,7 +33,7 @@ jobs:
         run: ./gradlew androidDependencies
 
       - name: Cache Gradle Dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.gradle/caches
@@ -44,7 +44,7 @@ jobs:
         run: ./gradlew build
 
       - name: Store Build Reports
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: reports
           path: app/build/reports
