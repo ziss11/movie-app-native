@@ -101,7 +101,14 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showProgressBar(isLoading: Boolean = true) {
-        binding.popularProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        if (isLoading) {
+            binding.popularProgressBar.visibility = View.VISIBLE
+            binding.rvSearch.visibility = View.INVISIBLE
+        } else {
+            binding.popularProgressBar.visibility = View.GONE
+            binding.rvSearch.visibility = View.VISIBLE
+
+        }
     }
 
     private fun showMessage(isShow: Boolean = true) {

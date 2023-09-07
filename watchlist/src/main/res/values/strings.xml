@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="empty_movie_state">Empty Movie</string>
     <string name="empty_watchlist_title">There is no watchlist yet!</string>
     <string name="watchlist">Watchlist</string>
 </resources>
