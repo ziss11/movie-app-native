@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
@@ -50,8 +49,6 @@ class DetailActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.watchlist_action -> {
                 if (movie != null) {
-                    Log.d("Watchlist", isWatchlist.toString())
-
                     if (isWatchlist == 1) {
                         detailViewModel.removeWatchlistMovie(movie?.id!!)
                     } else {

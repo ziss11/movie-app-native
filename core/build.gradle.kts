@@ -33,7 +33,7 @@ android {
     }
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -64,15 +64,15 @@ dependencies {
     implementation("net.zetetic:android-database-sqlcipher:4.4.0")
     implementation("androidx.sqlite:sqlite-ktx:2.3.1")
 
-    api("androidx.navigation:navigation-fragment-ktx:2.7.1")
-    api("androidx.navigation:navigation-ui-ktx:2.7.1")
-    api("androidx.navigation:navigation-dynamic-features-fragment:2.7.1")
+    api("androidx.navigation:navigation-fragment-ktx:2.7.2")
+    api("androidx.navigation:navigation-ui-ktx:2.7.2")
+    api("androidx.navigation:navigation-dynamic-features-fragment:2.7.2")
 
-    api("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    api("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     api("androidx.activity:activity-ktx:1.7.2")
     api("androidx.fragment:fragment-ktx:1.6.1")
 
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.10")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
 
     testImplementation("junit:junit:4.13.2")
 

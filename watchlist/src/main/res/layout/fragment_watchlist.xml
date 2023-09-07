@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Theme.MovieApp"
@@ -8,51 +8,62 @@
     android:orientation="vertical"
     tools:context=".presentation.ui.WatchlistFragment">
 
-    <include
-        android:id="@+id/appbar_layout"
-        layout="@layout/toolbar" />
-
-    <TextView
-        android:id="@+id/toolbar_title"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/watchlist"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold|normal"
-        app:layout_constraintBottom_toBottomOf="@+id/appbar_layout"
-        app:layout_constraintEnd_toEndOf="@+id/appbar_layout"
-        app:layout_constraintStart_toStartOf="@+id/appbar_layout"
-        app:layout_constraintTop_toTopOf="@+id/appbar_layout" />
+        android:layout_height="wrap_content">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_watchlist"
+        <include
+            android:id="@+id/appbar_layout"
+            layout="@layout/toolbar" />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+
+            android:text="@string/watchlist"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold|normal" />
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="16dp"
-        android:paddingBottom="80dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
-        tools:itemCount="10"
-        tools:listitem="@layout/movie_tile_item" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/empty_state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawablePadding="16dp"
-        android:text="@string/empty_watchlist_title"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold|normal"
-        app:drawableTopCompat="@drawable/img_empty"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_watchlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="80dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="10"
+            tools:listitem="@layout/movie_tile_item" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/empty_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="16dp"
+            android:text="@string/empty_watchlist_title"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold|normal"
+            android:visibility="visible"
+            app:drawableTopCompat="@drawable/img_empty"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

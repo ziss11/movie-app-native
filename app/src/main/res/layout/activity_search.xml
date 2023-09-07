@@ -31,15 +31,15 @@
     <include
         android:id="@+id/search_layout"
         layout="@layout/search_textfield"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_search"
@@ -75,7 +75,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold|normal"
-            android:visibility="gone"
+            android:visibility="visible"
             app:drawableTopCompat="@drawable/img_no_results"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

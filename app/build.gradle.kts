@@ -26,7 +26,7 @@ android {
     }
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -48,6 +48,6 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.1")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.2")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.2")
 }

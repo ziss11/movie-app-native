@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ziss.core.presentation.adapter.MovieTileAdapter
 import com.ziss.core.presentation.models.MovieModel
@@ -19,9 +20,10 @@ import javax.inject.Inject
 
 class WatchlistFragment : Fragment() {
     private var _binding: FragmentWatchlistBinding? = null
-    private val binding get() = _binding
+    private val binding get() = _binding!!
 
     private lateinit var movieTileAdapter: MovieTileAdapter
+    private lateinit var watchlistObserver: LiveData<List<MovieModel>>
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -30,9 +32,9 @@ class WatchlistFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentWatchlistBinding.inflate(layoutInflater, container, false)
-        return _binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,13 +48,21 @@ class WatchlistFragment : Fragment() {
         inject()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        watchlistObserver.removeObservers(this)
+        _binding = null
+    }
+
     private fun fetchWatchlistMovies() {
-        watchlistViewModel.getWatchlistMovies().observe(requireActivity()) { result ->
-            if (result.isNullOrEmpty()) {
-                showMessage()
-            } else {
-                showMessage(false)
-                movieTileAdapter.setMovies(result)
+        watchlistObserver = watchlistViewModel.getWatchlistMovies()
+        watchlistObserver.observe(requireActivity()) { result ->
+            when {
+                result.isNullOrEmpty() -> showMessage()
+                else -> {
+                    showMessage(false)
+                    movieTileAdapter.setMovies(result)
+                }
             }
         }
     }
@@ -71,7 +81,7 @@ class WatchlistFragment : Fragment() {
             }
         })
 
-        binding?.rvWatchlist?.apply {
+        binding.rvWatchlist.apply {
             adapter = movieTileAdapter
             layoutManager = layout
         }
@@ -81,11 +91,11 @@ class WatchlistFragment : Fragment() {
 
     private fun showMessage(isShow: Boolean = true) {
         if (isShow) {
-            binding?.emptyState?.visibility = View.VISIBLE
-            binding?.rvWatchlist?.visibility = View.INVISIBLE
+            binding.emptyState.visibility = View.VISIBLE
+            binding.rvWatchlist.visibility = View.INVISIBLE
         } else {
-            binding?.emptyState?.visibility = View.GONE
-            binding?.rvWatchlist?.visibility = View.VISIBLE
+            binding.emptyState.visibility = View.GONE
+            binding.rvWatchlist.visibility = View.VISIBLE
         }
     }
 }

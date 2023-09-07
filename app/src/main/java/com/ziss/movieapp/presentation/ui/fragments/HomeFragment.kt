@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ziss.core.presentation.adapter.MovieCardAdapter
 import com.ziss.core.presentation.adapter.MovieTileAdapter
@@ -26,40 +26,43 @@ import kotlinx.coroutines.FlowPreview
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding
+    private val binding get() = _binding!!
 
     private lateinit var movieCardAdapter: MovieCardAdapter
     private lateinit var movieTileAdapter: MovieTileAdapter
+
+    private lateinit var topRatedObserver: LiveData<ResultState<List<MovieModel>>>
+    private lateinit var nowPlayingObserver: LiveData<ResultState<List<MovieModel>>>
 
     private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-        return _binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setToolbar()
-        fetchTopRatedMovies()
-        fetchNowPlayingMovies()
-
-        binding?.searchLayout?.edSearch?.setOnClickListener {
+        binding.searchLayout.edSearch.setOnClickListener {
             SearchActivity.start(requireActivity())
         }
+
+        setNowPlayingAdapter()
+        setTopRatedAdapter()
     }
 
-    private fun setToolbar() {
-        val activity = activity as AppCompatActivity
-        activity.setSupportActionBar(binding?.appbarLayout?.toolbar)
-        activity.supportActionBar?.title = ""
+    override fun onDestroyView() {
+        super.onDestroyView()
+        topRatedObserver.removeObservers(this)
+        nowPlayingObserver.removeObservers(this)
+        _binding = null
     }
 
-    private fun setTopRatedAdapter(movies: List<MovieModel>) {
+    private fun setTopRatedAdapter() {
         val layout = LinearLayoutManager(
             requireActivity(), LinearLayoutManager.HORIZONTAL,
             false
@@ -73,16 +76,16 @@ class HomeFragment : Fragment() {
             }
         })
 
-        binding?.rvTopRated?.apply {
+        binding.rvTopRated.apply {
             adapter = movieCardAdapter
             layoutManager = layout
             addItemDecoration(decoration)
         }
 
-        movieCardAdapter.setMovies(movies)
+        fetchTopRatedMovies()
     }
 
-    private fun setNowPlayingAdapter(movies: List<MovieModel>) {
+    private fun setNowPlayingAdapter() {
         val layout = object : LinearLayoutManager(requireActivity()) {
             override fun canScrollVertically(): Boolean {
                 return false
@@ -96,17 +99,18 @@ class HomeFragment : Fragment() {
             }
         })
 
-        binding?.rvPopular?.apply {
+        binding.rvPopular.apply {
             adapter = movieTileAdapter
             layoutManager = layout
         }
 
-        movieTileAdapter.setMovies(movies)
+        fetchNowPlayingMovies()
     }
 
 
     private fun fetchTopRatedMovies() {
-        homeViewModel.getTopRatedMovies().observe(requireActivity()) { result ->
+        topRatedObserver = homeViewModel.getTopRatedMovies()
+        topRatedObserver.observe(requireActivity()) { result ->
             when (result) {
                 is ResultState.Loading -> showTopRatedProgressBar()
 
@@ -115,7 +119,7 @@ class HomeFragment : Fragment() {
                     val movies = result.data
 
                     if (movies.isNotEmpty()) {
-                        setTopRatedAdapter(movies)
+                        movieCardAdapter.setMovies(movies)
                     } else {
                         showTopRatedMessage()
                     }
@@ -130,7 +134,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun fetchNowPlayingMovies() {
-        homeViewModel.getNowPlayingMovies().observe(requireActivity()) { result ->
+        nowPlayingObserver = homeViewModel.getNowPlayingMovies()
+        nowPlayingObserver.observe(requireActivity()) { result ->
             when (result) {
                 is ResultState.Loading -> showPopularProgressBar()
 
@@ -139,7 +144,7 @@ class HomeFragment : Fragment() {
                     val movies = result.data
 
                     if (movies.isNotEmpty()) {
-                        setNowPlayingAdapter(movies)
+                        movieTileAdapter.setMovies(movies)
                     } else {
                         showPopularMessage()
                     }
@@ -154,30 +159,30 @@ class HomeFragment : Fragment() {
     }
 
     private fun showTopRatedProgressBar(isLoading: Boolean = true) {
-        binding?.trProgressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.trProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showPopularProgressBar(isLoading: Boolean = true) {
-        binding?.popularProgressBar?.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.popularProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun showTopRatedMessage(isShow: Boolean = true) {
         if (isShow) {
-            binding?.tvTrMessage?.visibility = View.VISIBLE
-            binding?.rvTopRated?.visibility = View.INVISIBLE
+            binding.tvTrMessage.visibility = View.VISIBLE
+            binding.rvTopRated.visibility = View.INVISIBLE
         } else {
-            binding?.tvTrMessage?.visibility = View.GONE
-            binding?.rvTopRated?.visibility = View.VISIBLE
+            binding.tvTrMessage.visibility = View.GONE
+            binding.rvTopRated.visibility = View.VISIBLE
         }
     }
 
     private fun showPopularMessage(isShow: Boolean = true) {
         if (isShow) {
-            binding?.tvPopularMessage?.visibility = View.VISIBLE
-            binding?.rvPopular?.visibility = View.INVISIBLE
+            binding.tvPopularMessage.visibility = View.VISIBLE
+            binding.rvPopular.visibility = View.INVISIBLE
         } else {
-            binding?.tvPopularMessage?.visibility = View.GONE
-            binding?.rvPopular?.visibility = View.VISIBLE
+            binding.tvPopularMessage.visibility = View.GONE
+            binding.rvPopular.visibility = View.VISIBLE
         }
     }
 }
