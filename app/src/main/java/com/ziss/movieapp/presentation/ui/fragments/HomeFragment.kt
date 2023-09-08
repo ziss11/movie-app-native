@@ -115,7 +115,7 @@ class HomeFragment : Fragment() {
 
     private fun fetchTopRatedMovies() {
         topRatedObserver = homeViewModel.getTopRatedMovies()
-        topRatedObserver.observe(requireActivity()) { result ->
+        topRatedObserver.observe(viewLifecycleOwner) { result ->
             Log.d("TOP RATED", result.toString())
             when (result) {
                 is ResultState.Loading -> showTopRatedProgressBar()
@@ -141,7 +141,7 @@ class HomeFragment : Fragment() {
 
     private fun fetchNowPlayingMovies() {
         nowPlayingObserver = homeViewModel.getNowPlayingMovies()
-        nowPlayingObserver.observe(requireActivity()) { result ->
+        nowPlayingObserver.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is ResultState.Loading -> showPopularProgressBar()
 

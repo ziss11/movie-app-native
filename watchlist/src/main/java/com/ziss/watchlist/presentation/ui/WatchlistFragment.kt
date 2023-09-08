@@ -39,9 +39,9 @@ class WatchlistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setMovieAdapter()
     }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -56,7 +56,7 @@ class WatchlistFragment : Fragment() {
 
     private fun fetchWatchlistMovies() {
         watchlistObserver = watchlistViewModel.getWatchlistMovies()
-        watchlistObserver.observe(requireActivity()) { result ->
+        watchlistObserver.observe(viewLifecycleOwner) { result ->
             when {
                 result.isEmpty() -> showMessage()
                 else -> {
