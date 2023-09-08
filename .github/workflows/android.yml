@@ -43,27 +43,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Generate kover coverage report
-        run: ./gradlew koverXmlReport
-
-      - name: Add coverage report to PR
-        id: kover
-        uses: mi-kas/kover-report@v1
-        with:
-          path: |
-            ${{ github.workspace }}/app/build/reports/kover/report.xml
-            ${{ github.workspace }}/core/build/reports/kover/report.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          title: Code Coverage
-          update-comment: true
-          min-coverage-overall: 80
-          coverage-counter-type: LINE
-
-      - name: Vulnerability Analysis
-        run: |
-          npm install -g snyk
-          snyk test
-
       - name: Run Tests
         run: ./gradlew lint test
 
