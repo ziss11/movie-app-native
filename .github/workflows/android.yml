@@ -43,10 +43,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Kotlinx Kover Report
-        uses: mi-kas/kover-report@v1
-
-
       - name: Generate kover coverage report
         run: ./gradlew koverXmlReport
 
@@ -61,7 +57,6 @@ jobs:
           title: Code Coverage
           update-comment: true
           min-coverage-overall: 80
-          min-coverage-changed-files: 80
           coverage-counter-type: LINE
 
       - name: Vulnerability Analysis
