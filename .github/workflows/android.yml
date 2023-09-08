@@ -43,6 +43,9 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
+      - name: Generate kover coverage report
+        run: ./gradlew koverXmlReport
+
       - name: Add coverage report to PR
         id: kover
         uses: mi-kas/kover-report@v1
