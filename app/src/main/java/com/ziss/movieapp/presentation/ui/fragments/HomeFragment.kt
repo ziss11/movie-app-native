@@ -1,6 +1,7 @@
 package com.ziss.movieapp.presentation.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -115,6 +116,7 @@ class HomeFragment : Fragment() {
     private fun fetchTopRatedMovies() {
         topRatedObserver = homeViewModel.getTopRatedMovies()
         topRatedObserver.observe(requireActivity()) { result ->
+            Log.d("TOP RATED", result.toString())
             when (result) {
                 is ResultState.Loading -> showTopRatedProgressBar()
 

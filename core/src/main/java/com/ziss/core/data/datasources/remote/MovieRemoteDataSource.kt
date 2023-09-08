@@ -18,6 +18,7 @@ class MovieRemoteDataSource @Inject constructor(private val apiService: ApiServi
             val result = apiService.getTopRatedMovies()
             emit(ResultState.Success(result.results))
         } catch (e: Exception) {
+            Log.d("TOP RATED", e.message.toString())
             emit(ResultState.Failed(e.message.toString()))
         }
     }.flowOn(Dispatchers.IO)
