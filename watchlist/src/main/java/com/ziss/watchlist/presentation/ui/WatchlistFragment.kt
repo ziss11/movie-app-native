@@ -50,15 +50,15 @@ class WatchlistFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.rvWatchlist.adapter = null
         watchlistObserver.removeObservers(this)
-        _binding = null
     }
 
     private fun fetchWatchlistMovies() {
         watchlistObserver = watchlistViewModel.getWatchlistMovies()
         watchlistObserver.observe(requireActivity()) { result ->
             when {
-                result.isNullOrEmpty() -> showMessage()
+                result.isEmpty() -> showMessage()
                 else -> {
                     showMessage(false)
                     movieTileAdapter.setMovies(result)
@@ -68,11 +68,7 @@ class WatchlistFragment : Fragment() {
     }
 
     private fun setMovieAdapter() {
-        val layout = object : LinearLayoutManager(requireActivity()) {
-            override fun canScrollVertically(): Boolean {
-                return false
-            }
-        }
+        val layout = LinearLayoutManager(requireActivity())
 
         movieTileAdapter = MovieTileAdapter()
         movieTileAdapter.setOnItemClicked(object : MovieTileAdapter.OnItemClickCallback {

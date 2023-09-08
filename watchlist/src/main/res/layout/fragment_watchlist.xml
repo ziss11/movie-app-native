@@ -56,7 +56,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold|normal"
-            android:visibility="visible"
+            android:visibility="gone"
             app:drawableTopCompat="@drawable/img_empty"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

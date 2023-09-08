@@ -86,12 +86,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_top_rated" />
 
             <TextView
-                android:id="@+id/tv_popular"
+                android:id="@+id/tv_now_playing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/popular_movies"
+                android:text="@string/now_playing_movies"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -99,7 +99,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/rv_top_rated" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_popular"
+                android:id="@+id/rv_now_playing"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -107,7 +107,7 @@
                 android:paddingHorizontal="16dp"
                 android:paddingBottom="80dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/tv_popular"
+                app:layout_constraintTop_toBottomOf="@+id/tv_now_playing"
                 tools:itemCount="10"
                 tools:listitem="@layout/movie_tile_item" />
 
@@ -122,7 +122,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/rv_popular" />
+                app:layout_constraintTop_toTopOf="@+id/rv_now_playing" />
 
             <TextView
                 android:id="@+id/tv_popular_message"
@@ -134,7 +134,7 @@
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/rv_popular" />
+                app:layout_constraintTop_toTopOf="@+id/rv_now_playing" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

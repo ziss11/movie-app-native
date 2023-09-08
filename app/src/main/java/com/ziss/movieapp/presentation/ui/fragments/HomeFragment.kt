@@ -59,6 +59,10 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         topRatedObserver.removeObservers(this)
         nowPlayingObserver.removeObservers(this)
+
+        binding.rvTopRated.adapter = null
+        binding.rvNowPlaying.adapter = null
+
         _binding = null
     }
 
@@ -99,7 +103,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        binding.rvPopular.apply {
+        binding.rvNowPlaying.apply {
             adapter = movieTileAdapter
             layoutManager = layout
         }
@@ -179,10 +183,10 @@ class HomeFragment : Fragment() {
     private fun showPopularMessage(isShow: Boolean = true) {
         if (isShow) {
             binding.tvPopularMessage.visibility = View.VISIBLE
-            binding.rvPopular.visibility = View.INVISIBLE
+            binding.rvNowPlaying.visibility = View.INVISIBLE
         } else {
             binding.tvPopularMessage.visibility = View.GONE
-            binding.rvPopular.visibility = View.VISIBLE
+            binding.rvNowPlaying.visibility = View.VISIBLE
         }
     }
 }
